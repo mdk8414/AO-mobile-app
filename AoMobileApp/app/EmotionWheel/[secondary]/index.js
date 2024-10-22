@@ -1,7 +1,7 @@
-import React from 'react';
 import { Text, Platform, Dimensions, View, StyleSheet } from "react-native";
 import { useLocalSearchParams } from 'expo-router';
 import { WebView } from 'react-native-webview';
+import React from 'react';
 
 import emotions from "../../constants/emotions";
 import Emotions from "../../components/Emotions";

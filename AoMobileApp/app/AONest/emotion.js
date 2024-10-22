@@ -1,6 +1,6 @@
-import React from 'react';
-import { View, Text, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, SafeAreaView } from "react-native";
 import { Link } from 'expo-router';
+import React from 'react';
 
 export default function Page() {
   return (
