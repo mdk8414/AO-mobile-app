@@ -1,38 +1,62 @@
-import { StyleSheet, Text, View, Button, Pressable } from "react-native";
-import {Link} from 'expo-router'
-
+import React from 'react';
+import { View, Text, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
+import { Link } from 'expo-router';
 
 export default function Page() {
   return (
-    <View style={styles.container}>
-      <View style={styles.main}>
-        <Text style={styles.title}>Emotional Intelligence</Text>
-        <Text style={styles.subtitle}>Instructions, etc.</Text>
-        {/* <Link href="/homescreen">Home</Link> */}
-        <Link href="/EmotionWheel">Go to next screen</Link>
-      </View>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        <View style={styles.main}>
+          <Text style={styles.title}>Emotional Intelligence</Text>
+          <Text style={styles.subtitle}>
+            Emotional intelligence refers to the ability to recognize, understand, and manage one's own emotions. 
+            You can use this skill to foster better communication, empathy, and relationships, helping 
+            to improve your life and the lives of those around you.
+          </Text>
+          <Link style={styles.link} href="/EmotionWheel">
+            <Text style={styles.linkText}>Get started →</Text>
+          </Link>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    padding: 24,
+    backgroundColor: '#fff',
+  },
+  scrollView: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    padding: 20,
   },
   main: {
-    flex: 1,
-    justifyContent: "center",
-    maxWidth: 960,
-    marginHorizontal: "auto",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   title: {
-    fontSize: 64,
-    fontWeight: "bold",
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
   },
   subtitle: {
-    fontSize: 36,
-    color: "#38434D",
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 30,
+    lineHeight: 24,
+  },
+  link: {
+    marginTop: 20,
+    padding: 10,
+    backgroundColor: '#66847b',
+    borderRadius: 5,
+  },
+  linkText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });

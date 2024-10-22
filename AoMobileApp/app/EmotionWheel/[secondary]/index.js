@@ -1,56 +1,90 @@
-import { Text, Platform, Dimensions, View } from "react-native";
-import { useLocalSearchParams  } from 'expo-router'
+import React from 'react';
+import { Text, Platform, Dimensions, View, StyleSheet } from "react-native";
+import { useLocalSearchParams } from 'expo-router';
 import { WebView } from 'react-native-webview';
 
 import emotions from "../../constants/emotions";
 import Emotions from "../../components/Emotions";
 import PageWrapper from '../../components/Wrappers/SubPage';
 
+const { width } = Dimensions.get('window');
+
 import styles from '../../styles/page';
 
-const { width } = Dimensions.get('window');
 
 export default function EmotionWheelLevel2() {
   const { secondary } = useLocalSearchParams();
   const emotion = secondary ? emotions.find(el => el.text === secondary) : {};
 
-  return(
+  const VideoComponent = Platform.select({
+    web: () => (
+      <div style={custom_styles.iframeContainer}>
+        <iframe
+          src={emotion?.video}
+          style={custom_styles.iframe}
+          allowFullScreen
+        />
+      </div>
+    ),
+    default: () => (
+      <WebView
+        style={custom_styles.webView}
+        source={{ uri: emotion?.video }}
+      />
+    ),
+  });
+
+  return (
     <PageWrapper>
-      {Platform.OS === 'web' ? (
-        <View style={{ flexDirection: 'row', alignItems: 'flex-start', width: '100%'}}>
-          <View style={{ width: width / 2 }}>
-            <Text style={styles.subtitle}>Select a more specific emotion</Text>
-            <Emotions emotions={emotion?.secondary || []} baseHref={`/EmotionWheel/${emotion.text}/`} />
-          </View>
-          
-            <div style={styles.iframeContainer}>
-              <iframe
-                src={emotion?.video}
-                style={{
-                    width: width / 2,
-                    height: width * 0.5625 / 2,
-                    border: "0px"
-                }}
-                allowFullScreen
-              />
-            </div>
+      <Text style={styles.title}>Select a more specific emotion</Text>
+      <View style={custom_styles.container}> 
+        <View style={custom_styles.content}>
+          <Emotions 
+            emotions={emotion?.secondary || []} 
+            baseHref={`/EmotionWheel/${emotion.text}/`} 
+          />
         </View>
-      ) : (
-        <View style={{ flex: 0.75, alignItems: 'center' }}>
-          <Text style={styles.subtitle}>Select a more specific emotion</Text>
-          <Emotions emotions={emotion?.secondary || []} baseHref={`/EmotionWheel/${emotion.text}/`} />
-          <WebView
-              style={{
-                top: '10%',
-                flex: 0.8,
-                width: width,
-                height: width * 0.5625,
-                border: "0px",
-              }}
-              source={{ uri: emotion?.video }}
-            />
-        </View>
-      )}
+        <VideoComponent />
+      </View>
     </PageWrapper>
   );
-};
+}
+
+const custom_styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: Platform.OS === 'web' ? 'row' : 'column',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  content: {
+    flex: 0.5,
+    width: Platform.OS === 'web' ? '50%' : '100%',
+    paddingHorizontal: 20,
+  },
+  subtitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    marginTop: 20,
+    textAlign: 'center',
+  },
+  iframeContainer: {
+    flex: 0.5,
+    width: '50%',
+    aspectRatio: 16 / 9,
+    overflow: 'hidden',
+  },
+  iframe: {
+    width: '100%',
+    height: '100%',
+    border: 0,
+  },
+  webView: {
+    flex: 0,
+    width: width,
+    height: width * (9 / 16),
+    // marginTop: 20,
+  },
+});

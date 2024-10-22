@@ -9,7 +9,7 @@ import styles from '../styles/page';
 export default function EmotionWheelInner() {
   return(
     <PageWrapper>
-      <Text style={styles.subtitle}>Select an emotion</Text>
+      <Text style={styles.title}>Select an emotion</Text>
       <Emotions emotions={emotions} baseHref="/EmotionWheel/" />
     </PageWrapper>
   );
