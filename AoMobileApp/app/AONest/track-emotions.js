@@ -1,10 +1,12 @@
 import { Dimensions, StyleSheet, Text, View, ScrollView, SafeAreaView } from "react-native";
 import { Button } from 'react-native-elements';
-import { Link } from 'expo-router';
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 export default function Page() {
+
+    const router = useRouter();
 
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [selected_date, setSelectedDate] = useState(new Date());
@@ -55,15 +57,26 @@ export default function Page() {
                         
                     />
                 </View>
-                <Link style={styles.link} href="TrackEmotions/track-emotions-form">
-                    <Text style={styles.linkText}>Morning</Text>
-                </Link>
-                <Link style={styles.link} href="TrackEmotions/track-emotions-form">
-                    <Text style={styles.linkText}>Afternoon</Text>
-                </Link>
-                <Link style={styles.link} href="TrackEmotions/track-emotions-form">
-                    <Text style={styles.linkText}>Evening</Text>
-                </Link>
+               
+                <Button 
+                    onPress={ () => { router.push('TrackEmotions/track-emotions-form') } } 
+                    title="Morning"
+                    titleStyle={styles.linkText}
+                    buttonStyle={styles.link}
+                />
+                <Button 
+                    onPress={ () => { router.push('TrackEmotions/track-emotions-form') } } 
+                    title="Afternoon"
+                    titleStyle={styles.linkText}
+                    buttonStyle={styles.link}
+                />
+                <Button 
+                    onPress={ () => { router.push('TrackEmotions/track-emotions-form') } } 
+                    title="Evening"
+                    titleStyle={styles.linkText}
+                    buttonStyle={styles.link}
+                />
+                
             </View>
         </ScrollView>
         </SafeAreaView>

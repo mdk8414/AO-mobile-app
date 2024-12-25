@@ -1,35 +1,42 @@
 import { StyleSheet, Text, View, TouchableOpacity, Linking  } from "react-native";
-import {Link} from 'expo-router'
-
+import { useRouter } from 'expo-router'
+import { Button } from 'react-native-elements';
 
 export default function Page() {
+  
+  const router = useRouter();
+
   return (
     <View style={styles.container}>
       <View style={styles.main}>
         <Text style={styles.title}>Welcome to AO Nest!</Text>
         <Text style={styles.subtitle}>Begin your mental health journey here.</Text>
-        
-          
-        <TouchableOpacity>
-          <Link style={styles.link} href="AONest/track-emotions">
-            <Text style={styles.linkText}>Track Emotions</Text>
-          </Link>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Link style={styles.link} href="AONest/emotional-intelligence">
-            <Text style={styles.linkText}>Emotional Intelligence</Text>
-          </Link>
-        </TouchableOpacity>
-        <TouchableOpacity>
-        <Link style={styles.link} href="AONest/content"> 
-          <Text style={styles.linkText}>Content</Text>
-        </Link>
-        </TouchableOpacity>
-        <TouchableOpacity>
-        <Link style={styles.link} href="AONest/settings">
-            <Text style={styles.linkText}>Settings</Text>
-        </Link>
-        </TouchableOpacity>
+
+        <Button 
+            onPress={ () => { router.push('AONest/track-emotions') } } 
+            title="Track Emotions"
+            titleStyle={styles.linkText}
+            buttonStyle={styles.link}
+        />
+        <Button 
+            onPress={ () => { router.push('AONest/emotional-intelligence') } } 
+            title="Emotional Intelligence"
+            titleStyle={styles.linkText}
+            buttonStyle={styles.link}
+        />
+        <Button 
+            onPress={ () => { router.push('/AONest/content') } } 
+            title="Content"
+            titleStyle={styles.linkText}
+            buttonStyle={styles.link}
+        />
+        <Button 
+            onPress={ () => { router.push('/AONest/settings') } } 
+            title="Settings"
+            titleStyle={styles.linkText}
+            buttonStyle={styles.link}
+        />
+
       </View>
     </View>
   );
@@ -57,6 +64,8 @@ const styles = StyleSheet.create({
   },
   link: {
     marginTop: 20,
+    alignItems: "left",
+    justifyContent: "left",
     padding: 10,
     backgroundColor: '#66847b',
     borderRadius: 10,
@@ -67,5 +76,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 24,
     fontWeight: 'bold',
+    marginLeft: 20
   }
 });

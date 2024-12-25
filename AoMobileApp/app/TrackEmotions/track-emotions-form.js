@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 
 const FormOption = ({ question, options, onSelect }) => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -35,6 +35,9 @@ const FormOption = ({ question, options, onSelect }) => {
 };
 
 const TrackEmotionsForm = () => {
+  
+  const router = useRouter();
+
   const [answers, setAnswers] = useState({
     question1: null,
     question2: null,
@@ -68,15 +71,16 @@ const TrackEmotionsForm = () => {
       <View style={styles.submitButtonContainer}>
         <TouchableOpacity
           style={styles.submitButton}
-          onPress={() => console.log("Answers:", answers)}
-        >
+          onPress={() => console.log("Answers:", answers)}>
           <Text style={styles.submitButtonText}>Submit</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.submitButtonContainer}>
-        <Link style={styles.submitButton} href="../">
+        <TouchableOpacity
+          style={styles.submitButton}
+          onPress={ () => { router.push('../') } }>
           <Text style={styles.submitButtonText}>Back</Text>
-        </Link>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
