@@ -1,12 +1,16 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
+import { Button } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
-import colors from '../constants/colors'
-import styles from '../styles/page';
+import colors from 'constants/colors'
+import styles from 'styles/page';
 
-import HeaderLogo from '../components/Logo';
+import HeaderLogo from 'components/Logo';
+
 
 export default function TabLayout() {
+  const navigation = useNavigation();
   return (
     <Tabs
       sceneContainerStyle={styles.container}
@@ -24,10 +28,18 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="emotion"
+        name="track-emotions"
+        options={{
+          title: 'Track Emotions',
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name="pencil-square-o" color={color} />,
+          // href: null
+        }}
+      />
+      <Tabs.Screen
+        name="emotional-intelligence"
         options={{
           title: 'Emotional Intelligence',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="list" color={color} />,
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name="heartbeat" color={color} />,
         }}
       />
       <Tabs.Screen

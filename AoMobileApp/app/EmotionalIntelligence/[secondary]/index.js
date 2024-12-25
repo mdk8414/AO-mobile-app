@@ -3,16 +3,16 @@ import { useLocalSearchParams } from 'expo-router';
 import { WebView } from 'react-native-webview';
 import React from 'react';
 
-import emotions from "../../constants/emotions";
-import Emotions from "../../components/Emotions";
-import PageWrapper from '../../components/Wrappers/SubPage';
+import emotions from "constants/emotions";
+import Emotions from "components/Emotions";
+import PageWrapper from 'components/Wrappers/SubPage';
 
 const { width } = Dimensions.get('window');
 
-import styles from '../../styles/page';
+import styles from 'styles/page';
 
 
-export default function EmotionWheelLevel2() {
+export default function EmotionalIntelligenceLevel2() {
   const { secondary } = useLocalSearchParams();
   const emotion = secondary ? emotions.find(el => el.text === secondary) : {};
 
@@ -41,7 +41,7 @@ export default function EmotionWheelLevel2() {
         <View style={custom_styles.content}>
           <Emotions 
             emotions={emotion?.secondary || []} 
-            baseHref={`/EmotionWheel/${emotion.text}/`} 
+            baseHref={`/EmotionalIntelligence/${emotion.text}/`} 
           />
         </View>
         <VideoComponent />

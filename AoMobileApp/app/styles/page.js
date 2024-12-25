@@ -13,7 +13,7 @@ export default StyleSheet.create({
   title: {
     color: colors.headerText,
     fontSize: fonts.headerSize,
-    padding: 10
+    padding: 2,
   },
   subtitle: {
     fontSize: fonts.subHeaderSize,

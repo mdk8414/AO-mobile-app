@@ -2,15 +2,15 @@ import { StyleSheet, Text, Platform, Dimensions, View } from "react-native";
 import { useLocalSearchParams  } from 'expo-router'
 import { WebView } from 'react-native-webview';
 
-import emotions from "../../../constants/emotions";
-import Emotions from "../../../components/Emotions";
-import PageWrapper from '../../../components/Wrappers/SubPage';
+import emotions from "constants/emotions";
+import Emotions from "components/Emotions";
+import PageWrapper from 'components/Wrappers/SubPage';
 
-import styles from '../../../styles/page';
+import styles from 'styles/page';
 
 const { width } = Dimensions.get('window');
 
-export default function EmotionWheelLevel3() {
+export default function EmotionalIntelligenceLevel3() {
   const { tertiary } = useLocalSearchParams();
   const full_emotion = tertiary ? emotions.find(el => el.secondary.find(innerEl => innerEl.text === tertiary) ) : {};
   const emotion = full_emotion.secondary.find(el => el.text === tertiary)
@@ -41,7 +41,7 @@ export default function EmotionWheelLevel3() {
       <Text style={styles.title}>Select a more specific emotion</Text>
       <View style={custom_styles.container}> 
         <View style={custom_styles.content}>
-        <Emotions emotions={emotion?.tertiary || []} baseHref={`/EmotionWheel/${prev_emotion.text}/${emotion.text}/`} />
+        <Emotions emotions={emotion?.tertiary || []} baseHref={`/EmotionalIntelligence/${prev_emotion.text}/${emotion.text}/`} />
         </View>
         <VideoComponent />
       </View>

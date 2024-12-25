@@ -3,14 +3,14 @@ import { Link, useLocalSearchParams } from 'expo-router';
 import React, { useState, useEffect } from 'react';
 import { WebView } from 'react-native-webview';
 
-import emotions from "../../../constants/emotions";
-import styles from '../../../styles/page';
-import PageWrapper from '../../../components/Wrappers/SubPage';
+import emotions from "constants/emotions";
+import styles from 'styles/page';
+import PageWrapper from 'components/Wrappers/SubPage';
 
 const { width } = Dimensions.get('window');
 
 
-export default function EmotionWheelSelection() {
+export default function EmotionalIntelligenceSelection() {
   const { selection } = useLocalSearchParams();
   
   const findTertiaryEmotion = () => {

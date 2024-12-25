@@ -1,19 +1,24 @@
-import { StyleSheet, Text, View, ScrollView, SafeAreaView } from "react-native";
+import { Dimensions, StyleSheet, Text, View, ScrollView, SafeAreaView } from "react-native";
 import { Link } from 'expo-router';
 import React from 'react';
 
+const { width, height } = Dimensions.get('window');
+
 export default function Page() {
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={styles.main}>
           <Text style={styles.title}>Emotional Intelligence</Text>
-          <Text style={styles.subtitle}>
-            Emotional intelligence refers to the ability to recognize, understand, and manage one's own emotions. 
-            You can use this skill to foster better communication, empathy, and relationships, helping 
-            to improve your life and the lives of those around you.
-          </Text>
-          <Link style={styles.link} href="/EmotionWheel">
+          <View style={{flex: 1, width: width/1.25}}>
+            <Text style={styles.subtitle}>
+              Emotional intelligence refers to the ability to recognize, understand, and manage one's own emotions. 
+              You can use this skill to foster better communication, empathy, and relationships, helping 
+              to improve your life and the lives of those around you.
+            </Text>
+          </View>
+          <Link style={styles.link} href="/EmotionalIntelligence">
             <Text style={styles.linkText}>Get started →</Text>
           </Link>
         </View>

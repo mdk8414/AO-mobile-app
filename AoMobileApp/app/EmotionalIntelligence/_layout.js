@@ -1,7 +1,7 @@
 import { Stack } from 'expo-router/stack';
 
-import styles from '../styles/page';
-import HeaderLogo from '../components/Logo';
+import styles from 'styles/page';
+import HeaderLogo from 'components/Logo';
 
 export default function TabLayout() {
   return (
@@ -43,5 +43,6 @@ export default function TabLayout() {
         })}
       />
     </Stack>
+    
   );
 };
