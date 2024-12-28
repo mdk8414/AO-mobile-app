@@ -1,8 +1,11 @@
 import { Dimensions, StyleSheet, Text, View, ScrollView, SafeAreaView } from "react-native";
 import { Button } from 'react-native-elements';
 import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const { width } = Dimensions.get('window');
 
 export default function Page() {
 
@@ -24,62 +27,101 @@ export default function Page() {
         hideDatePicker();
     };
 
+    const epoch = selected_date.getTime();
+
+    const dateString = selected_date.toLocaleDateString("en-US", {weekday: "long", day: "numeric", month: "long", year: "numeric"})
+
+    const [totalScore, setTotalScore] = useState(0);
+
+    const getScore = async (tod) => {
+      try {
+        const score = await AsyncStorage.getItem(`mitigating-factors/${epoch}/${tod}/score`);
+        if (score) {
+          console.log('Score loaded successfully:', score);
+          return parseInt(score, 10);
+        } else {
+          console.warn(`Unable to find score located at mitigating-factors/${epoch}/${tod}/score.`);
+          return 0;
+        }
+      } catch (error) {
+        console.error('Error getting score:', error)
+        return 0;
+      }
+    }
+
+    const calculateTotalScore = async () => {
+      const morningScore = await getScore("Morning");
+      const afternoonScore = await getScore("Afternoon");
+      const eveningScore = await getScore("Evening");
+
+      return morningScore + afternoonScore + eveningScore;
+    };
+
+    useEffect( () => { 
+      const updateScore = async () => {
+        const total = await calculateTotalScore();
+        setTotalScore(total);
+      };
+    
+      updateScore();
+    }, [epoch])
 
     return (
-        <SafeAreaView style={styles.container}>
-        <ScrollView contentContainerStyle={styles.scrollView}>
-            <View style={styles.main}>
-                <Text style={styles.title}>Track Emotions</Text>
-                <View>
-                    <Button 
-                        // color="#FFFFFF" 
-                        onPress={showDatePicker} 
-                        title={selected_date.toLocaleDateString("en-US", {weekday: "long", day: "numeric", month: "long", year: "numeric"})}
-                        titleStyle={{
-                            color: "black",
-                            fontSize: 24,   
-                        }}
-                        buttonStyle={{
-                            backgroundColor: "#cccccc",
-                            borderRadius: 10,
-                            borderWidth: 2,
-                            borderColor: '#f',
-                            borderRadius: 5,
-                            paddingHorizontal: 20
-                        }}
-                    />
-                    <DateTimePickerModal
-                        isVisible={isDatePickerVisible}
-                        mode="date"
-                        date={selected_date}
-                        onConfirm={handleConfirm}
-                        onCancel={hideDatePicker}
-                        
-                    />
-                </View>
-               
-                <Button 
-                    onPress={ () => { router.push('TrackEmotions/track-emotions-form') } } 
-                    title="Morning"
-                    titleStyle={styles.linkText}
-                    buttonStyle={styles.link}
-                />
-                <Button 
-                    onPress={ () => { router.push('TrackEmotions/track-emotions-form') } } 
-                    title="Afternoon"
-                    titleStyle={styles.linkText}
-                    buttonStyle={styles.link}
-                />
-                <Button 
-                    onPress={ () => { router.push('TrackEmotions/track-emotions-form') } } 
-                    title="Evening"
-                    titleStyle={styles.linkText}
-                    buttonStyle={styles.link}
-                />
-                
-            </View>
-        </ScrollView>
-        </SafeAreaView>
+      <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollView}>
+          <View style={styles.main}>
+              {/* <Text style={styles.title}>Track Emotions</Text> */}
+              <View>
+                  <Button 
+                      onPress={showDatePicker} 
+                      title={dateString}
+                      titleStyle={{
+                          color: "black",
+                          fontSize: 24,   
+                      }}
+                      buttonStyle={{
+                          backgroundColor: "#cccccc",
+                          borderRadius: 10,
+                          borderWidth: 2,
+                          borderColor: '#f',
+                          borderRadius: 5,
+                          paddingHorizontal: 20
+                      }}
+                  />
+                  <DateTimePickerModal
+                      isVisible={isDatePickerVisible}
+                      mode="date"
+                      date={selected_date}
+                      onConfirm={handleConfirm}
+                      onCancel={hideDatePicker} 
+                      maximumDate={new Date()}  
+                  />
+              </View>
+              
+              <Button 
+                  onPress={ () => { router.push(`TrackEmotions/${epoch}/Morning/track-emotions-form`) } } 
+                  title="Morning"
+                  titleStyle={styles.linkText}
+                  buttonStyle={styles.link}
+              />
+              <Button 
+                  onPress={ () => { router.push(`TrackEmotions/${epoch}/Afternoon/track-emotions-form`) } } 
+                  title="Afternoon"
+                  titleStyle={styles.linkText}
+                  buttonStyle={styles.link}
+              />
+              <Button 
+                  onPress={ () => { router.push(`TrackEmotions/${epoch}/Evening/track-emotions-form`) } } 
+                  title="Evening"
+                  titleStyle={styles.linkText}
+                  buttonStyle={styles.link}
+              />
+
+              <Text>Total Score = { totalScore }</Text>
+              
+          </View>
+      </ScrollView>
+      </SafeAreaView>
     );
 
 }
@@ -111,10 +153,9 @@ const styles = StyleSheet.create({
     lineHeight: 24,
   },
   link: {
-    marginTop: 20,
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    width: 150,
+    marginTop: 40,
+    paddingVertical: 15,
+    width: 300,
     borderWidth: 1,
     borderColor: '#f',
     borderRadius: 10,
@@ -125,7 +166,7 @@ const styles = StyleSheet.create({
   },
   linkText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 24,
     fontWeight: 'bold',
   },
   date: {

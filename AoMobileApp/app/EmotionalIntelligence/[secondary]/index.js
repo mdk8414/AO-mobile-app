@@ -59,9 +59,9 @@ const custom_styles = StyleSheet.create({
     width: '100%',
   },
   content: {
-    flex: 0.5,
+    flex: 1,
     width: Platform.OS === 'web' ? '50%' : '100%',
-    paddingHorizontal: 20,
+    paddingHorizontal: 0,
   },
   subtitle: {
     fontSize: 18,
@@ -71,7 +71,7 @@ const custom_styles = StyleSheet.create({
     textAlign: 'center',
   },
   iframeContainer: {
-    flex: 0.5,
+    flex: 1,
     width: '50%',
     aspectRatio: 16 / 9,
     overflow: 'hidden',
@@ -83,7 +83,7 @@ const custom_styles = StyleSheet.create({
   },
   webView: {
     flex: 0,
-    width: width,
+    width: width ,
     height: width * (9 / 16),
     // marginTop: 20,
   },

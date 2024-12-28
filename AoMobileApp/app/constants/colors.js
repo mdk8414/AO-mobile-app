@@ -15,4 +15,5 @@ export default {
   primaryButton: DARK_GREEN,
   secondaryButton: LIGHT_GREEN,
   selectedButton: DARK_GREEN,
+  beige: BEIGE
 }
