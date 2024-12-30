@@ -1,7 +1,7 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
-import { Button } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { getFocusedRouteNameFromRoute, useNavigationState } from '@react-navigation/native'
+import NavigationButton from 'components/Buttons/Navigation';
 
 import colors from 'constants/colors'
 import styles from 'styles/page';
@@ -10,8 +10,25 @@ import HeaderLogo from 'components/Logo';
 
 
 export default function TabLayout() {
-  const navigation = useNavigation();
+
+  const currentRoute = useNavigationState((state) => {
+    const route = state.routes[state.index];
+    return getFocusedRouteNameFromRoute(route) || "index";
+  });
+
+  const tabs = [
+    "index",
+
+  ]
+
+  const isHomePage = currentRoute === "index";
+
+  console.log(`Current Route: ${currentRoute}`);
+  console.log(`Is Home Page: ${isHomePage}`);
+
+
   return (
+    
     <Tabs
       sceneContainerStyle={styles.container}
       screenOptions={{
@@ -19,6 +36,7 @@ export default function TabLayout() {
         headerStyle: styles.header,
         headerTitleStyle: styles.title,
         headerRight: () => <HeaderLogo />,
+        headerLeft: () => !isHomePage && <NavigationButton icon="arrow-circle-left"/>
         }}>
       <Tabs.Screen
         name="index"
@@ -28,15 +46,14 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="track-emotions"
+        name="TrackEmotions"
         options={{
           title: 'Track Emotions',
           tabBarIcon: ({ color }) => <FontAwesome size={28} name="pencil-square-o" color={color} />,
-          // href: null
         }}
       />
       <Tabs.Screen
-        name="emotional-intelligence"
+        name="EmotionalIntelligence"
         options={{
           title: 'Emotional Intelligence',
           tabBarIcon: ({ color }) => <FontAwesome size={28} name="heartbeat" color={color} />,

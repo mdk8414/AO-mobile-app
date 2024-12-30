@@ -13,13 +13,13 @@ export default function Page() {
         <Text style={styles.subtitle}>Begin your mental health journey here.</Text>
 
         <Button 
-            onPress={ () => { router.push('AONest/track-emotions') } } 
+            onPress={ () => { router.push('AONest/TrackEmotions/track-emotions') } } 
             title="Track Emotions"
             titleStyle={styles.linkText}
             buttonStyle={styles.link}
         />
         <Button 
-            onPress={ () => { router.push('AONest/emotional-intelligence') } } 
+            onPress={ () => { router.push('AONest/EmotionalIntelligence/') } } 
             title="Emotional Intelligence"
             titleStyle={styles.linkText}
             buttonStyle={styles.link}

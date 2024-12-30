@@ -6,11 +6,11 @@ import PageWrapper from 'components/Wrappers/SubPage';
 
 import styles from 'styles/page';
 
-export default function EmotionalIntelligenceInner() {
+export default function EmotionalIntelligenceOuter() {
   return(
     <PageWrapper>
       <Text style={styles.title}>Select an emotion</Text>
-      <Emotions emotions={emotions} baseHref="/EmotionalIntelligence/" />
+      <Emotions emotions={emotions} baseHref="AONest/EmotionalIntelligence/" />
     </PageWrapper>
   );
 };

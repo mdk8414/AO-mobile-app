@@ -41,7 +41,7 @@ export default function EmotionalIntelligenceLevel2() {
         <View style={custom_styles.content}>
           <Emotions 
             emotions={emotion?.secondary || []} 
-            baseHref={`/EmotionalIntelligence/${emotion.text}/`} 
+            baseHref={`AONest/EmotionalIntelligence/${emotion.text}/`} 
           />
         </View>
         <VideoComponent />

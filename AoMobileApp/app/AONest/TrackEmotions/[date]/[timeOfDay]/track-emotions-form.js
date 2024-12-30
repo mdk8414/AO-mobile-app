@@ -116,10 +116,8 @@ const TrackEmotionsForm = () => {
       const savedAnswers = await AsyncStorage.getItem(`mitigating-factors/${date}/${timeOfDay}`);
       if (savedAnswers) {
         setAnswers(JSON.parse(savedAnswers));
-        console.log('Form loaded successfully:', savedAnswers);
-      } else {
-        console.warn('Unable to find form answers.');
-      }
+        console.log(`Loading saved answers from ${timeOfDay} of ${dateString}`);
+      } 
     } catch (error) {
       console.error('Error loading form:', error)
     }
@@ -141,10 +139,12 @@ const TrackEmotionsForm = () => {
     return totalScore;
   };
 
+  const dateString = new Date(Number(date)).toLocaleDateString("en-US", {weekday: "long", day: "numeric", month: "long", year: "numeric"});
+
   return (
       
       <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.titleText}>{timeOfDay} of {new Date(Number(date)).toLocaleDateString("en-US", {weekday: "long", day: "numeric", month: "long", year: "numeric"})}</Text>
+      <Text style={styles.titleText}>{timeOfDay} of {dateString}</Text>
 
       { 
         questions.map( (question) => (
@@ -193,19 +193,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontStyle: "italic",
     marginBottom: 10,
-    // color: "#333",
   },
   optionsContainer: {
     marginTop: 10,
-    // width: 500,
-    // flexDirection: "row",
   },
   radioButtonContainer: {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 20,
-    // paddingHorizontal: 20,
-    // flexWrap: "wrap"
   },
   radioButton: {
     height: 20,
@@ -222,7 +217,6 @@ const styles = StyleSheet.create({
   radioText: {
     marginLeft: 10,
     fontSize: 16,
-    // color: "#000",
     flexShrink: 1
   },
   submitButtonContainer: {
@@ -241,11 +235,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   titleText: {
-    // color: "#0",
     marginRight: 10,
     marginBottom: 10,
     fontSize: 18,
     fontWeight: "bold",
-    // textDecorationLine: "underline",
   },
 });

@@ -31,46 +31,10 @@ export default function Page() {
 
     const dateString = selected_date.toLocaleDateString("en-US", {weekday: "long", day: "numeric", month: "long", year: "numeric"})
 
-    const [totalScore, setTotalScore] = useState(0);
-
-    const getScore = async (tod) => {
-      try {
-        const score = await AsyncStorage.getItem(`mitigating-factors/${epoch}/${tod}/score`);
-        if (score) {
-          console.log('Score loaded successfully:', score);
-          return parseInt(score, 10);
-        } else {
-          console.warn(`Unable to find score located at mitigating-factors/${epoch}/${tod}/score.`);
-          return 0;
-        }
-      } catch (error) {
-        console.error('Error getting score:', error)
-        return 0;
-      }
-    }
-
-    const calculateTotalScore = async () => {
-      const morningScore = await getScore("Morning");
-      const afternoonScore = await getScore("Afternoon");
-      const eveningScore = await getScore("Evening");
-
-      return morningScore + afternoonScore + eveningScore;
-    };
-
-    useEffect( () => { 
-      const updateScore = async () => {
-        const total = await calculateTotalScore();
-        setTotalScore(total);
-      };
-    
-      updateScore();
-    }, [epoch])
-
     return (
       <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
           <View style={styles.main}>
-              {/* <Text style={styles.title}>Track Emotions</Text> */}
               <View>
                   <Button 
                       onPress={showDatePicker} 
@@ -99,25 +63,25 @@ export default function Page() {
               </View>
               
               <Button 
-                  onPress={ () => { router.push(`TrackEmotions/${epoch}/Morning/track-emotions-form`) } } 
+                  onPress={ () => { router.push(`AONest/TrackEmotions/${epoch}/Morning/track-emotions-form`) } } 
                   title="Morning"
                   titleStyle={styles.linkText}
                   buttonStyle={styles.link}
               />
               <Button 
-                  onPress={ () => { router.push(`TrackEmotions/${epoch}/Afternoon/track-emotions-form`) } } 
+                  onPress={ () => { router.push(`AONest/TrackEmotions/${epoch}/Afternoon/track-emotions-form`) } } 
                   title="Afternoon"
                   titleStyle={styles.linkText}
                   buttonStyle={styles.link}
               />
               <Button 
-                  onPress={ () => { router.push(`TrackEmotions/${epoch}/Evening/track-emotions-form`) } } 
+                  onPress={ () => { router.push(`AONest/TrackEmotions/${epoch}/Evening/track-emotions-form`) } } 
                   title="Evening"
                   titleStyle={styles.linkText}
                   buttonStyle={styles.link}
               />
 
-              <Text>Total Score = { totalScore }</Text>
+              {/* <Text>Total Score = { totalScore }</Text> */}
               
           </View>
       </ScrollView>
@@ -173,3 +137,38 @@ const styles = StyleSheet.create({
     fontSize: 64,
   },
 });
+
+    // const [totalScore, setTotalScore] = useState(0);
+
+    // const getScore = async (tod) => {
+    //   try {
+    //     const score = await AsyncStorage.getItem(`mitigating-factors/${epoch}/${tod}/score`);
+    //     if (score) {
+    //       console.log('Score loaded successfully:', score);
+    //       return parseInt(score, 10);
+    //     } else {
+    //       console.warn(`Unable to find score located at mitigating-factors/${epoch}/${tod}/score.`);
+    //       return 0;
+    //     }
+    //   } catch (error) {
+    //     console.error('Error getting score:', error)
+    //     return 0;
+    //   }
+    // }
+
+    // const calculateTotalScore = async () => {
+    //   const morningScore = await getScore("Morning");
+    //   const afternoonScore = await getScore("Afternoon");
+    //   const eveningScore = await getScore("Evening");
+
+    //   return morningScore + afternoonScore + eveningScore;
+    // };
+
+    // useEffect( () => { 
+    //   const updateScore = async () => {
+    //     const total = await calculateTotalScore();
+    //     setTotalScore(total);
+    //   };
+    
+    //   updateScore();
+    // }, [epoch])

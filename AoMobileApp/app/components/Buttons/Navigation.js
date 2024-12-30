@@ -1,15 +1,15 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { StyleSheet, Text } from "react-native";
-import { Link } from 'expo-router'
+import { StyleSheet, Text, TouchableOpacity, } from "react-native";
+import { Link, useRouter } from 'expo-router'
 import fonts from '../../constants/fonts';
 import colors from '../../constants/colors';
 
 const Navigation = ({ text, icon, href }) => {
+  const router = useRouter();
   return (
-    <Link style={styles.container} href={href}>
-      <FontAwesome size={28} name={icon} color={colors.primaryButton} />
-      <Text style={styles.text}>{text}</Text>
-    </Link>
+    <TouchableOpacity style={styles.container} onPress={() => href ? router.push(href) : router.back()}>
+      <FontAwesome size={36} name="arrow-circle-left" color={colors.primaryButton} />
+    </TouchableOpacity>
   )
 }
 
@@ -20,9 +20,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    position: 'absolute',
-    bottom: 20,
-    right: 20
+    marginLeft: 10,
   },
   text: {
     fontSize: fonts.textSize

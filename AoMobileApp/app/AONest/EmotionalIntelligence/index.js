@@ -1,10 +1,12 @@
 import { Dimensions, StyleSheet, Text, View, ScrollView, SafeAreaView } from "react-native";
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import React from 'react';
+import { Button } from 'react-native-elements';
 
 const { width, height } = Dimensions.get('window');
 
 export default function Page() {
+  const router = useRouter();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -18,9 +20,12 @@ export default function Page() {
               to improve your life and the lives of those around you.
             </Text>
           </View>
-          <Link style={styles.link} href="/EmotionalIntelligence">
-            <Text style={styles.linkText}>Get started →</Text>
-          </Link>
+          <Button 
+              onPress={ () => { router.push(`AONest/EmotionalIntelligence/outer`) } } 
+              title="Get started →"
+              titleStyle={styles.linkText}
+              buttonStyle={styles.link}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>

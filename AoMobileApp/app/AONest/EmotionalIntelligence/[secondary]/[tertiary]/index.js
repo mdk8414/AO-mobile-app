@@ -41,7 +41,7 @@ export default function EmotionalIntelligenceLevel3() {
       <Text style={styles.title}>Select a more specific emotion</Text>
       <View style={custom_styles.container}> 
         <View style={custom_styles.content}>
-        <Emotions emotions={emotion?.tertiary || []} baseHref={`/EmotionalIntelligence/${prev_emotion.text}/${emotion.text}/`} />
+        <Emotions emotions={emotion?.tertiary || []} baseHref={`AONest/EmotionalIntelligence/${prev_emotion.text}/${emotion.text}/`} />
         </View>
         <VideoComponent />
       </View>
