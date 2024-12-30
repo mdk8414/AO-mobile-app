@@ -30,20 +30,20 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     borderRadius: 10,
-    borderWidth: 1,
+    borderWidth: 0.3,
     borderColor: '#f',
-    marginHorizontal: width/10,
+    paddingHorizontal: width/10,
+    marginHorizontal: width/25,
     marginTop: height/25,
     color: "#0",
     backgroundColor: colors.secondaryButton
-    // width: '50%',
   },
   text: {
-    flex: 0,
+    // flex: 0,
     fontSize: fonts.textSize,
   },
   emoji: {
-    flex: 0,
+    // flex: 0,
     fontSize: fonts.emoji,  
   }
 });

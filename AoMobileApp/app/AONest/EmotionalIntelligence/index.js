@@ -62,7 +62,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
     padding: 10,
     backgroundColor: '#66847b',
-    borderRadius: 5,
+    borderRadius: 10,
+    // borderWidth: 1,
+    borderColor: '#f'
   },
   linkText: {
     color: '#fff',

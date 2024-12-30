@@ -2,6 +2,8 @@ import { StyleSheet, Text, View, TouchableOpacity, Linking  } from "react-native
 import { useRouter } from 'expo-router'
 import { Button } from 'react-native-elements';
 
+import colors from 'constants/colors'
+
 export default function Page() {
   
   const router = useRouter();
@@ -13,25 +15,25 @@ export default function Page() {
         <Text style={styles.subtitle}>Begin your mental health journey here.</Text>
 
         <Button 
-            onPress={ () => { router.push('AONest/TrackEmotions/track-emotions') } } 
+            onPress={ () => { router.push('AONest/TrackEmotions/'); } } 
             title="Track Emotions"
             titleStyle={styles.linkText}
             buttonStyle={styles.link}
         />
         <Button 
-            onPress={ () => { router.push('AONest/EmotionalIntelligence/') } } 
+            onPress={ () => { router.push('AONest/EmotionalIntelligence/'); } } 
             title="Emotional Intelligence"
             titleStyle={styles.linkText}
             buttonStyle={styles.link}
         />
         <Button 
-            onPress={ () => { router.push('/AONest/content') } } 
+            onPress={ () => { router.push('AONest/content') } } 
             title="Content"
             titleStyle={styles.linkText}
             buttonStyle={styles.link}
         />
         <Button 
-            onPress={ () => { router.push('/AONest/settings') } } 
+            onPress={ () => { router.push('AONest/settings') } } 
             title="Settings"
             titleStyle={styles.linkText}
             buttonStyle={styles.link}
@@ -57,20 +59,21 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 64,
     fontWeight: "bold",
+    color: colors.title,
   },
   subtitle: {
     fontSize: 36,
-    color: "#38434D",
+    color: colors.title,
   },
   link: {
-    marginTop: 20,
+    marginTop: 25,
     alignItems: "left",
     justifyContent: "left",
     padding: 10,
-    backgroundColor: '#66847b',
+    backgroundColor: colors.primaryButton,
     borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#f'
+    borderWidth: 2,
+    borderColor: colors.secondaryButton
   },
   linkText: {
     color: '#fff',

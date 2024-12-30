@@ -14,7 +14,7 @@ export default function Layout() {
       // }}
       >
       <Stack.Screen 
-        name="track-emotions" 
+        name="index" 
         options={{
           title: `Track Emotions`,
           headerShown: false

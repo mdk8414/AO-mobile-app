@@ -61,7 +61,7 @@ const custom_styles = StyleSheet.create({
   content: {
     flex: 1,
     width: Platform.OS === 'web' ? '50%' : '100%',
-    paddingHorizontal: 0,
+    // paddingHorizontal: 0,
   },
   subtitle: {
     fontSize: 18,

@@ -23,9 +23,7 @@ export default function TabLayout() {
 
   const isHomePage = currentRoute === "index";
 
-  console.log(`Current Route: ${currentRoute}`);
-  console.log(`Is Home Page: ${isHomePage}`);
-
+  console.log(`Current Page: ${currentRoute}`);
 
   return (
     

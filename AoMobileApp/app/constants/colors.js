@@ -3,6 +3,7 @@ const BLACK = '#000000';
 const WHITE = '#fff';
 
 const DARK_GREEN = '#66847b';
+const DARKER_GREEN = '#3f524c';
 const LIGHT_GREEN = '#c8d9c8';
 const BEIGE = '#f8f7f2';
 
@@ -15,5 +16,6 @@ export default {
   primaryButton: DARK_GREEN,
   secondaryButton: LIGHT_GREEN,
   selectedButton: DARK_GREEN,
-  beige: BEIGE
+  beige: BEIGE,
+  title: DARKER_GREEN
 }

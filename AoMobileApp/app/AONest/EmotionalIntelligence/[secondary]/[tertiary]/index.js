@@ -59,9 +59,9 @@ const custom_styles = StyleSheet.create({
     width: '100%',
   },
   content: {
-    flex: 0.5,
+    flex: 1,
     width: Platform.OS === 'web' ? '50%' : '100%',
-    paddingHorizontal: 20,
+    // paddingHorizontal: 0,
   },
   subtitle: {
     fontSize: 18,

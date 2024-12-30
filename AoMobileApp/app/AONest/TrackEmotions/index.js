@@ -5,6 +5,8 @@ import React, { useState, useEffect } from 'react';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import colors from "constants/colors";
+
 const { width } = Dimensions.get('window');
 
 export default function Page() {
@@ -41,15 +43,17 @@ export default function Page() {
                       title={dateString}
                       titleStyle={{
                           color: "black",
-                          fontSize: 24,   
+                          fontSize: 24, 
+                          // fontWeight: 'bold',  
                       }}
                       buttonStyle={{
-                          backgroundColor: "#cccccc",
-                          borderRadius: 10,
+                          backgroundColor: colors.secondaryButton,
+                          borderRadius: 2,
                           borderWidth: 2,
-                          borderColor: '#f',
-                          borderRadius: 5,
-                          paddingHorizontal: 20
+                          borderColor: colors.primaryButton,
+                          paddingHorizontal: 20,
+                          paddingVertical: 20,
+                          width: '100%',
                       }}
                   />
                   <DateTimePickerModal
@@ -120,10 +124,10 @@ const styles = StyleSheet.create({
     marginTop: 40,
     paddingVertical: 15,
     width: 300,
-    borderWidth: 1,
-    borderColor: '#f',
+    borderWidth: 2,
+    borderColor: colors.secondaryButton,
     borderRadius: 10,
-    backgroundColor: '#66847b',
+    backgroundColor: colors.primaryButton,
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',

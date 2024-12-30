@@ -15,7 +15,7 @@ export default function HomeScreen() {
     <View style={styles.webView}>
       <WebView
         style={styles.webView}
-        source={{ uri: 'https://go.aonest.com/lessons/644/lesson_content_view/1316' }}
+        source={{ uri: 'https://go.aonest.com/' }}
       />
       {/* <Link style={{...styles.title, padding: 20}} href={"https://go.aonest.com/courses"}>All Courses</Link>
       <Link style={{...styles.subtitle, padding: 20}} href={"https://go.aonest.com/lessons/644/lesson_content_view/1316"}>Understanding And Resolving My Feelings</Link>
@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: width,
     height: height,
-    // marginTop: 20,
+    backgroundColor: "#f",
+    color: "#f"
   }
 });

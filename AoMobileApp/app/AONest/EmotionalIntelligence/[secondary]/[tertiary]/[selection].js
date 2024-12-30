@@ -1,7 +1,7 @@
 import { Dimensions, Text, StyleSheet, Platform, View } from 'react-native';
-import { Link, useLocalSearchParams } from 'expo-router';
-import React, { useState, useEffect } from 'react';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 import { WebView } from 'react-native-webview';
+import { Button } from 'react-native-elements';
 
 import emotions from "constants/emotions";
 import styles from 'styles/page';
@@ -27,15 +27,25 @@ export default function EmotionalIntelligenceSelection() {
 
   const emotion = findTertiaryEmotion()
 
+  const router = useRouter();
+
   return(
     <PageWrapper> 
-      {Platform.OS === 'web' ? (
-      <View style={{ alignItems: 'center' }}>
-        <Text style={styles.title}>Emotional Intelligence</Text>
-        <Text style={styles.subtitle}>You selected {selection}.</Text>
-        <Link href="/AONest/content">See available content here</Link>
-        <Link href={"https://go.aonest.com/courses/153"}>See available lesson worksheets here</Link>
-        
+      <View style={{ flex: 0.75, alignItems: 'center' }}>
+        <Text style={styles.title}>You are feeling {selection.toUpperCase()}.</Text>
+        <Button 
+            onPress={ () => { router.push('AONest/content') } } 
+            title="View content"
+            titleStyle={styles.linkText}
+            buttonStyle={styles.link}
+        />
+        <Button 
+            onPress={ () => { router.dismiss(4); router.push('AONest/EmotionalIntelligence') } } 
+            title="Start over"
+            titleStyle={styles.title}
+            buttonStyle={{ backgroundColor: "#f"}}
+        />
+        {Platform.OS === 'web' ? (
           <div style={{ ...styles.iframeContainer, paddingTop: 20 }}>
             <iframe
               src={emotion?.video}
@@ -47,24 +57,19 @@ export default function EmotionalIntelligenceSelection() {
               allowFullScreen
             />
           </div>
-          </View>
         ) : (
-          <View style={{flex: 0.75, alignItems: 'center'}}>
-            <Text style={styles.title}>Emotional Intelligence</Text>
-            <Text style={styles.subtitle}>You selected {selection}.</Text>
-            <Link href="/AONest/content">See available content here</Link>
             <WebView
               style={{
                 top: '10%',
                 flex: 0.8,
                 width: width,
-                height: width * 0.5625,
+                height: width * 9/16,
                 border: "0px",
               }}
               source={{ uri: emotion?.video }}
             />
+            )}
           </View>
-        )}
       
     </PageWrapper>
   );

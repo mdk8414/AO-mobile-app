@@ -5,14 +5,7 @@ import HeaderLogo from 'components/Logo';
 
 export default function StackLayout() {
   return (
-    <Stack
-      // screenOptions={{
-      //   headerStyle: styles.header,
-      //   headerTitleStyle: styles.title,
-      //   headerRight: () => <HeaderLogo />,
-      //   contentStyle: styles.container
-      // }}
-    >
+    <Stack>
       <Stack.Screen
         name="index"
         options={{

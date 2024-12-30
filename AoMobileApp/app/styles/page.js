@@ -11,7 +11,7 @@ export default StyleSheet.create({
     borderBottomLeftRadius: 15,
   },
   title: {
-    color: colors.headerText,
+    color: colors.primaryButton,
     fontSize: fonts.headerSize,
     padding: 2,
   },
@@ -22,5 +22,21 @@ export default StyleSheet.create({
   },
   container: {
     backgroundColor: colors.containerBackground
+  },
+  link: {
+    marginTop: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 10,
+    backgroundColor: '#66847b',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#f'
+  },
+  linkText: {
+    color: '#fff',
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginHorizontal: 10
   }
 });
