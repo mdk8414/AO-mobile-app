@@ -12,18 +12,13 @@ import HeaderLogo from 'components/Logo';
 export default function TabLayout() {
 
   const currentRoute = useNavigationState((state) => {
+    if (!state || !state.routes[state.index]) return "index";
     const route = state.routes[state.index];
     return getFocusedRouteNameFromRoute(route) || "index";
   });
 
-  const tabs = [
-    "index",
-
-  ]
-
   const isHomePage = currentRoute === "index";
 
-  console.log(`Current Page: ${currentRoute}`);
 
   return (
     
@@ -31,6 +26,7 @@ export default function TabLayout() {
       sceneContainerStyle={styles.container}
       screenOptions={{
         tabBarActiveTintColor: colors.selectedButton,
+        tabBarActiveBackgroundColor: colors.secondaryButton,
         headerStyle: styles.header,
         headerTitleStyle: styles.title,
         headerRight: () => <HeaderLogo />,
@@ -54,7 +50,9 @@ export default function TabLayout() {
         name="EmotionalIntelligence"
         options={{
           title: 'Emotional Intelligence',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="heartbeat" color={color} />,
+          tabBarIcon: ({ color }) => (
+          <FontAwesome size={28} name="heartbeat" color={color} />
+        ),
         }}
       />
       <Tabs.Screen

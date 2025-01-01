@@ -10,33 +10,38 @@ export default function Page() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.main}>
+      <View style={styles.head}>
         <Text style={styles.title}>Welcome to AO Nest!</Text>
+      </View>
+      <View style={styles.subhead}>
         <Text style={styles.subtitle}>Begin your mental health journey here.</Text>
-
+      </View>
+      <View style={styles.main}>  
         <Button 
             onPress={ () => { router.push('AONest/TrackEmotions/'); } } 
             title="Track Emotions"
-            titleStyle={styles.linkText}
-            buttonStyle={styles.link}
+            titleStyle={styles.buttonText}
+            buttonStyle={styles.button}
         />
         <Button 
             onPress={ () => { router.push('AONest/EmotionalIntelligence/'); } } 
             title="Emotional Intelligence"
-            titleStyle={styles.linkText}
-            buttonStyle={styles.link}
+            titleStyle={styles.buttonText}
+            buttonStyle={styles.button}
         />
+      </View>
+      <View style={styles.main}>  
         <Button 
             onPress={ () => { router.push('AONest/content') } } 
             title="Content"
-            titleStyle={styles.linkText}
-            buttonStyle={styles.link}
+            titleStyle={styles.buttonText}
+            buttonStyle={styles.button}
         />
         <Button 
             onPress={ () => { router.push('AONest/settings') } } 
             title="Settings"
-            titleStyle={styles.linkText}
-            buttonStyle={styles.link}
+            titleStyle={styles.buttonText}
+            buttonStyle={styles.button}
         />
 
       </View>
@@ -47,38 +52,56 @@ export default function Page() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "top",
     padding: 24,
+  },
+  head: {
+    // backgroundColor: colors.secondaryButton,
+    // borderRadius: 10,
+    // borderWidth: 2,
+    // borderColor: colors.primaryButton,
+    maxWidth: 500,
+    // paddingBottom: 5,
+    marginBottom: 5,
+    alignItems: 'center',
+  },
+  subhead: {
+    alignItems: 'center',
+    maxWidth: 500,
+    // borderRadius: 10,
+    // borderWidth: 2,
+    // borderColor: colors.primaryButton,
   },
   main: {
     flex: 1,
-    justifyContent: "top",
-    maxWidth: 960,
-    marginHorizontal: "auto",
+    flexDirection: "row",
+    maxHeight: 160,
+    // justifyContent: "top",
   },
   title: {
-    fontSize: 64,
+    fontSize: 54,
     fontWeight: "bold",
-    color: colors.title,
+    color: colors.primaryButton,
+    // textAlign: "center",
+    // marginLeft: 10,
   },
   subtitle: {
     fontSize: 36,
-    color: colors.title,
+    color: colors.title2,
+    textAlign: "left",
   },
-  link: {
-    marginTop: 25,
-    alignItems: "left",
-    justifyContent: "left",
-    padding: 10,
-    backgroundColor: colors.primaryButton,
-    borderRadius: 10,
-    borderWidth: 2,
-    borderColor: colors.secondaryButton
+  button: {
+    width: 160,
+    height: 140,
+    marginTop: 20,
+    marginRight: 20,
+    backgroundColor: colors.secondaryButton,
+    borderRadius: 30,
+    // borderWidth: 0.5,
+    borderColor: colors.primaryButton,
   },
-  linkText: {
-    color: '#fff',
+  buttonText: {
+    color: colors.title2,
     fontSize: 24,
     fontWeight: 'bold',
-    marginLeft: 20
   }
 });

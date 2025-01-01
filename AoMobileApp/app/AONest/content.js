@@ -14,7 +14,6 @@ export default function HomeScreen() {
   return (
     <View style={styles.webView}>
       <WebView
-        style={styles.webView}
         source={{ uri: 'https://go.aonest.com/' }}
       />
       {/* <Link style={{...styles.title, padding: 20}} href={"https://go.aonest.com/courses"}>All Courses</Link>

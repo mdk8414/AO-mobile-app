@@ -100,10 +100,10 @@ const TrackEmotionsForm = () => {
 
   const { date, timeOfDay } = useLocalSearchParams();
 
-  const saveForm = async () => {
+  const saveForm = () => {
     try {
-      await AsyncStorage.setItem(`mitigating-factors/${date}/${timeOfDay}`, JSON.stringify(answers));
-      await AsyncStorage.setItem(`mitigating-factors/${date}/${timeOfDay}/score`, calculateScore().toString());
+      AsyncStorage.setItem(`mitigating-factors/${date}/${timeOfDay}`, JSON.stringify(answers));
+      AsyncStorage.setItem(`mitigating-factors/${date}/${timeOfDay}/score`, calculateScore().toString());
       console.log('Form saved successfully.');
       console.log(`Score saved to mitigating-factors/${date}/${timeOfDay}/score`)
     } catch (error) {
@@ -163,14 +163,14 @@ const TrackEmotionsForm = () => {
       <View style={styles.submitButtonContainer}>
         <TouchableOpacity
           style={styles.submitButton}
-          onPress={() => { saveForm(); router.push('../') }}>
+          onPress={() => { saveForm(); router.back(); }}>
           <Text style={styles.submitButtonText}>Submit</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.submitButtonContainer}>
         <TouchableOpacity
           style={styles.submitButton}
-          onPress={ () => { router.push('../') } }>
+          onPress={ () => { router.back() } }>
           <Text style={styles.submitButtonText}>Back</Text>
         </TouchableOpacity>
       </View>
@@ -183,7 +183,7 @@ export default TrackEmotionsForm;
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    backgroundColor: "#f5f5f5",
+    // backgroundColor: "#0",
   },
   questionContainer: {
     marginBottom: 30,
@@ -193,6 +193,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontStyle: "italic",
     marginBottom: 10,
+    color: colors.primaryButton,
   },
   optionsContainer: {
     marginTop: 10,
@@ -207,12 +208,13 @@ const styles = StyleSheet.create({
     width: 20,
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: "#007BFF",
+    // borderColor: "#007BFF",
+    borderColor: colors.primaryButton,
     alignItems: "center",
     justifyContent: "center",
   },
   radioButtonSelected: {
-    backgroundColor: "#007BFF",
+    backgroundColor: colors.secondaryButton,
   },
   radioText: {
     marginLeft: 10,
@@ -239,5 +241,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 18,
     fontWeight: "bold",
+    color: colors.title2,
   },
 });

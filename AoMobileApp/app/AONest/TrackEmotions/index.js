@@ -1,9 +1,10 @@
-import { Dimensions, StyleSheet, Text, View, ScrollView, SafeAreaView } from "react-native";
+import { Dimensions, StyleSheet, View, ScrollView, SafeAreaView } from "react-native";
 import { Button } from 'react-native-elements';
 import { useRouter } from 'expo-router';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from '@react-navigation/native';
 
 import colors from "constants/colors";
 
@@ -13,8 +14,11 @@ export default function Page() {
 
     const router = useRouter();
 
+    const isFocused = useIsFocused();
+
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [selected_date, setSelectedDate] = useState(new Date());
+    const [tracked, setTracked] = useState([false, false, false])
 
     const showDatePicker = () => {
         setDatePickerVisibility(true);
@@ -24,14 +28,36 @@ export default function Page() {
         setDatePickerVisibility(false);
     };
 
-    const handleConfirm = (date) => {
-        setSelectedDate(date)
-        hideDatePicker();
-    };
+    const dateString = selected_date.toLocaleDateString("en-US", {weekday: "long", day: "numeric", month: "long", year: "numeric"});
 
     const epoch = selected_date.getTime();
 
-    const dateString = selected_date.toLocaleDateString("en-US", {weekday: "long", day: "numeric", month: "long", year: "numeric"})
+    const isTracked = async (time, tod) => {
+      try {
+        const score = await AsyncStorage.getItem(`mitigating-factors/${time}/${tod}/score`);
+        return (score && score > 0) ? true : false;
+      } catch (err) {
+        console.log("Error retrieving data: ", err);
+        return false;
+      }
+    }
+
+    const updateTracked = async (time) => {
+      const morning = await isTracked(time, 'Morning')
+      const afternoon = await isTracked(time, 'Afternoon')
+      const evening = await isTracked(time, 'Evening')
+      setTracked([morning, afternoon, evening])
+    }
+
+    const handleConfirm = (date) => {
+      setSelectedDate(date)
+      updateTracked(date.getTime());
+      hideDatePicker();
+    };
+
+    useEffect(() => {
+      updateTracked(selected_date.getTime());
+    }, [isFocused]);
 
     return (
       <SafeAreaView style={styles.container}>
@@ -42,14 +68,14 @@ export default function Page() {
                       onPress={showDatePicker} 
                       title={dateString}
                       titleStyle={{
-                          color: "black",
+                          color: colors.primaryButton,
                           fontSize: 24, 
-                          // fontWeight: 'bold',  
+                          fontWeight: 'bold',  
                       }}
                       buttonStyle={{
                           backgroundColor: colors.secondaryButton,
-                          borderRadius: 2,
-                          borderWidth: 2,
+                          borderRadius: 4,
+                          borderWidth: 5,
                           borderColor: colors.primaryButton,
                           paddingHorizontal: 20,
                           paddingVertical: 20,
@@ -67,22 +93,22 @@ export default function Page() {
               </View>
               
               <Button 
-                  onPress={ () => { router.push(`AONest/TrackEmotions/${epoch}/Morning/track-emotions-form`) } } 
+                  onPress={ () => { router.push(`AONest/TrackEmotions/${epoch}/Morning/track-emotions-form`); } } 
                   title="Morning"
                   titleStyle={styles.linkText}
-                  buttonStyle={styles.link}
+                  buttonStyle={tracked[0] ? styles.linkAlt : styles.link}
               />
               <Button 
-                  onPress={ () => { router.push(`AONest/TrackEmotions/${epoch}/Afternoon/track-emotions-form`) } } 
+                  onPress={ () => { router.push(`AONest/TrackEmotions/${epoch}/Afternoon/track-emotions-form`); } } 
                   title="Afternoon"
                   titleStyle={styles.linkText}
-                  buttonStyle={styles.link}
+                  buttonStyle={tracked[1] ? styles.linkAlt : styles.link}
               />
               <Button 
-                  onPress={ () => { router.push(`AONest/TrackEmotions/${epoch}/Evening/track-emotions-form`) } } 
+                  onPress={ () => { router.push(`AONest/TrackEmotions/${epoch}/Evening/track-emotions-form`); } } 
                   title="Evening"
                   titleStyle={styles.linkText}
-                  buttonStyle={styles.link}
+                  buttonStyle={tracked[2] ? styles.linkAlt : styles.link}
               />
 
               {/* <Text>Total Score = { totalScore }</Text> */}
@@ -102,7 +128,8 @@ const styles = StyleSheet.create({
   scrollView: {
     flexGrow: 1,
     justifyContent: 'top',
-    padding: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 20,
   },
   main: {
     alignItems: 'center',
@@ -124,16 +151,28 @@ const styles = StyleSheet.create({
     marginTop: 40,
     paddingVertical: 15,
     width: 300,
-    borderWidth: 2,
+    // borderWidth: 2,
+    borderColor: colors.primaryButton,
+    borderRadius: 10,
+    backgroundColor: colors.secondaryButton,
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+  },
+  linkAlt: {
+    marginTop: 40,
+    paddingVertical: 15,
+    width: 300,
+    // borderWidth: 2,
     borderColor: colors.secondaryButton,
     borderRadius: 10,
-    backgroundColor: colors.primaryButton,
+    backgroundColor: "#ddd",
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
   },
   linkText: {
-    color: '#fff',
+    color: colors.title2,
     fontSize: 24,
     fontWeight: 'bold',
   },

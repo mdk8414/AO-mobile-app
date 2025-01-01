@@ -8,7 +8,7 @@ const Navigation = ({ text, icon, href }) => {
   const router = useRouter();
   return (
     <TouchableOpacity style={styles.container} onPress={() => href ? router.push(href) : router.back()}>
-      <FontAwesome size={36} name="arrow-circle-left" color={colors.primaryButton} />
+      <FontAwesome size={36} name={icon} color={colors.primaryButton} />
     </TouchableOpacity>
   )
 }
