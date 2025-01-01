@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet, View, ScrollView, SafeAreaView } from "react-native";
+import { Text, Dimensions, StyleSheet, View, ScrollView, SafeAreaView } from "react-native";
 import { Button } from 'react-native-elements';
 import { useRouter } from 'expo-router';
 import { useState, useEffect } from 'react';
@@ -18,7 +18,7 @@ export default function Page() {
 
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [selected_date, setSelectedDate] = useState(new Date());
-    const [tracked, setTracked] = useState([false, false, false])
+    const [scores, setScores] = useState([0, 0, 0])
 
     const showDatePicker = () => {
         setDatePickerVisibility(true);
@@ -32,31 +32,28 @@ export default function Page() {
 
     const epoch = selected_date.getTime();
 
-    const isTracked = async (time, tod) => {
+    const getScores = async (time, tod) => {
       try {
         const score = await AsyncStorage.getItem(`mitigating-factors/${time}/${tod}/score`);
-        return (score && score > 0) ? true : false;
+        return parseInt(score) || 0;
       } catch (err) {
         console.log("Error retrieving data: ", err);
-        return false;
+        return 0;
       }
     }
 
-    const updateTracked = async (time) => {
-      const morning = await isTracked(time, 'Morning')
-      const afternoon = await isTracked(time, 'Afternoon')
-      const evening = await isTracked(time, 'Evening')
-      setTracked([morning, afternoon, evening])
+    const updateScores = async (time) => {
+      setScores([await getScores(time, 'Morning'), await getScores(time, 'Afternoon'), await getScores(time, 'Evening')])
     }
 
     const handleConfirm = (date) => {
       setSelectedDate(date)
-      updateTracked(date.getTime());
+      updateScores(date.getTime());
       hideDatePicker();
     };
 
     useEffect(() => {
-      updateTracked(selected_date.getTime());
+      updateScores(selected_date.getTime());
     }, [isFocused]);
 
     return (
@@ -96,22 +93,21 @@ export default function Page() {
                   onPress={ () => { router.push(`AONest/TrackEmotions/${epoch}/Morning/track-emotions-form`); } } 
                   title="Morning"
                   titleStyle={styles.linkText}
-                  buttonStyle={tracked[0] ? styles.linkAlt : styles.link}
+                  buttonStyle={(scores[0] > 0) ? styles.linkAlt : styles.link}
               />
               <Button 
                   onPress={ () => { router.push(`AONest/TrackEmotions/${epoch}/Afternoon/track-emotions-form`); } } 
                   title="Afternoon"
                   titleStyle={styles.linkText}
-                  buttonStyle={tracked[1] ? styles.linkAlt : styles.link}
+                  buttonStyle={(scores[1] > 0) ? styles.linkAlt : styles.link}
               />
               <Button 
                   onPress={ () => { router.push(`AONest/TrackEmotions/${epoch}/Evening/track-emotions-form`); } } 
                   title="Evening"
                   titleStyle={styles.linkText}
-                  buttonStyle={tracked[2] ? styles.linkAlt : styles.link}
+                  buttonStyle={scores[2] > 0 ? styles.linkAlt : styles.link}
               />
-
-              {/* <Text>Total Score = { totalScore }</Text> */}
+              <Text style={{ marginTop: 10 }}>Total Score: { scores[0] + scores[1] + scores[2] }</Text>
               
           </View>
       </ScrollView>

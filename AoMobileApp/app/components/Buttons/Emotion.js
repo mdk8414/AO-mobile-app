@@ -1,6 +1,6 @@
 import { StyleSheet, Text, Dimensions, View } from "react-native";
 import { Link, useRouter } from 'expo-router'
-import fonts from '../../constants/fonts';
+import fonts from 'constants/fonts';
 import { Button } from 'react-native-elements'
 
 import colors from 'constants/colors'
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     borderRadius: 10,
-    borderWidth: 0.3,
+    // borderWidth: 0.3,
     borderColor: '#f',
     paddingHorizontal: width/10,
     marginHorizontal: width/25,
