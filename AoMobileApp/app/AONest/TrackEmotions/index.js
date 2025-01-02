@@ -16,8 +16,10 @@ export default function Page() {
 
     const isFocused = useIsFocused();
 
+    const today = new Date();
+
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-    const [selected_date, setSelectedDate] = useState(new Date());
+    const [selected_date, setSelectedDate] = useState(new Date(today.getFullYear(), today.getMonth(), today.getDate() ));
     const [scores, setScores] = useState([0, 0, 0])
 
     const showDatePicker = () => {
@@ -32,18 +34,16 @@ export default function Page() {
 
     const epoch = selected_date.getTime();
 
-    const getScores = async (time, tod) => {
+    const updateScores = async (time) => {
       try {
-        const score = await AsyncStorage.getItem(`mitigating-factors/${time}/${tod}/score`);
-        return parseInt(score) || 0;
+        const morning = await AsyncStorage.getItem(`mitigating-factors/${time}/Morning/score`);
+        const afternoon = await AsyncStorage.getItem(`mitigating-factors/${time}/Afternoon/score`);
+        const evening = await AsyncStorage.getItem(`mitigating-factors/${time}/Evening/score`);
+        setScores([parseInt(morning) || 0, parseInt(afternoon) || 0, parseInt(evening) || 0])
       } catch (err) {
         console.log("Error retrieving data: ", err);
         return 0;
       }
-    }
-
-    const updateScores = async (time) => {
-      setScores([await getScores(time, 'Morning'), await getScores(time, 'Afternoon'), await getScores(time, 'Evening')])
     }
 
     const handleConfirm = (date) => {
@@ -107,7 +107,7 @@ export default function Page() {
                   titleStyle={styles.linkText}
                   buttonStyle={scores[2] > 0 ? styles.linkAlt : styles.link}
               />
-              <Text style={{ marginTop: 10 }}>Total Score: { scores[0] + scores[1] + scores[2] }</Text>
+              <Text style={{ color: colors.title2, fontSize: 24, fontWeight: 'bold', marginTop: 50 }}>Total Score: { scores[0] + scores[1] + scores[2] }</Text>
               
           </View>
       </ScrollView>
