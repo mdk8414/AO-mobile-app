@@ -11,11 +11,10 @@ import styles from 'styles/page';
 const { width } = Dimensions.get('window');
 
 export default function EmotionalIntelligenceLevel3() {
-  const { tertiary } = useLocalSearchParams();
+  const { secondary, tertiary, date, timeOfDay } = useLocalSearchParams();
   const full_emotion = tertiary ? emotions.find(el => el.secondary.find(innerEl => innerEl.text === tertiary) ) : {};
   const emotion = full_emotion.secondary.find(el => el.text === tertiary)
 
-  const { secondary } = useLocalSearchParams();
   const prev_emotion = secondary ? emotions.find(el => el.text === secondary) : {};
 
   const VideoComponent = Platform.select({
@@ -41,7 +40,7 @@ export default function EmotionalIntelligenceLevel3() {
       <Text style={styles.title}>Select a more specific emotion</Text>
       <View style={custom_styles.container}> 
         <View style={custom_styles.content}>
-        <Emotions emotions={emotion?.tertiary || []} baseHref={`AONest/EmotionalIntelligence/${prev_emotion.text}/${emotion.text}/`} />
+        <Emotions emotions={emotion?.tertiary || []} baseHref={`AONest/EmotionalIntelligence/${date}/${timeOfDay}/${prev_emotion.text}/${emotion.text}/`} />
         </View>
         <VideoComponent />
       </View>

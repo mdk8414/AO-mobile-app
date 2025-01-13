@@ -10,6 +10,10 @@ import colors from 'constants/colors'
 export default function Page() {
   const router = useRouter();
 
+  const now = new Date();
+
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
@@ -23,7 +27,7 @@ export default function Page() {
             </Text>
           </View>
           <Button 
-              onPress={ () => { router.push(`AONest/EmotionalIntelligence/outer`) } } 
+              onPress={ () => { router.push(`AONest/EmotionalIntelligence/${today.getTime()}/Morning/outer`) } } 
               title="Get started →"
               titleStyle={styles.linkText}
               buttonStyle={styles.link}
@@ -63,13 +67,13 @@ const styles = StyleSheet.create({
   },
   link: {
     padding: 16,
-    backgroundColor: '#66847b',
+    backgroundColor: colors.primaryButton,
     borderRadius: 10,
     // borderWidth: 1,
     borderColor: '#f'
   },
   linkText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 20,
     fontWeight: 'bold',
   },

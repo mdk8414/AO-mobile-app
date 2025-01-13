@@ -2,6 +2,8 @@ import { Dimensions, Text, StyleSheet, Platform, View } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { WebView } from 'react-native-webview';
 import { Button } from 'react-native-elements';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 import emotions from "constants/emotions";
 import styles from 'styles/page';
@@ -11,7 +13,7 @@ const { width } = Dimensions.get('window');
 
 
 export default function EmotionalIntelligenceSelection() {
-  const { selection } = useLocalSearchParams();
+  const { selection, date, timeOfDay } = useLocalSearchParams();
   
   const findTertiaryEmotion = () => {
     for (let primaryEmotion of emotions) {
@@ -25,7 +27,16 @@ export default function EmotionalIntelligenceSelection() {
     return null; // Return null if not found
   };
 
-  const emotion = findTertiaryEmotion()
+  const emotion = findTertiaryEmotion();
+
+  const saveEmotion = () => {
+    try {
+      AsyncStorage.setItem(`emotion/${date}/${timeOfDay}`, emotion.text);
+      console.log('Emotion saved successfully.');
+    } catch (error) {
+      console.error('Error saving form:', error);
+    }
+  }
 
   const router = useRouter();
 
@@ -33,6 +44,12 @@ export default function EmotionalIntelligenceSelection() {
     <PageWrapper> 
       <View style={{ flex: 0.75, alignItems: 'center' }}>
         <Text style={styles.title}>You are feeling {selection.toUpperCase()}.</Text>
+        <Button 
+            onPress={ () => { saveEmotion(); router.dismiss(4); router.push(`AONest/TrackEmotions/${date}/${timeOfDay}/`) } } 
+            title="Save emotion"
+            titleStyle={styles.linkText}
+            buttonStyle={styles.link}
+        />
         <Button 
             onPress={ () => { router.push('AONest/content') } } 
             title="View content"

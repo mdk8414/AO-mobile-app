@@ -13,7 +13,7 @@ import styles from 'styles/page';
 
 
 export default function EmotionalIntelligenceLevel2() {
-  const { secondary } = useLocalSearchParams();
+  const { secondary, date, timeOfDay } = useLocalSearchParams();
   const emotion = secondary ? emotions.find(el => el.text === secondary) : {};
 
   const VideoComponent = Platform.select({
@@ -41,7 +41,7 @@ export default function EmotionalIntelligenceLevel2() {
         <View style={custom_styles.content}>
           <Emotions 
             emotions={emotion?.secondary || []} 
-            baseHref={`AONest/EmotionalIntelligence/${emotion.text}/`} 
+            baseHref={`AONest/EmotionalIntelligence/${date}/${timeOfDay}/${emotion.text}/`} 
           />
         </View>
         <VideoComponent />

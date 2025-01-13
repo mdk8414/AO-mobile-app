@@ -20,7 +20,7 @@ const FormOption = ({ question, options, selectedOption, onSelect }) => {
           <View
             style={[
               styles.radioButton,
-              selectedOption === value && styles.radioButtonSelected,
+              (selectedOption === value) && styles.radioButtonSelected,
             ]}
           />
           <Text style={styles.radioText}>{value}</Text>
@@ -163,8 +163,15 @@ const TrackEmotionsForm = () => {
       <View style={styles.submitButtonContainer}>
         <TouchableOpacity
           style={styles.submitButton}
+          onPress={() => { saveForm(); router.push(`AONest/EmotionalIntelligence/${date}/${timeOfDay}/outer`); }}>
+          <Text style={styles.submitButtonText}>Next</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.submitButtonContainer}>
+        <TouchableOpacity
+          style={styles.submitButton}
           onPress={() => { saveForm(); router.back(); }}>
-          <Text style={styles.submitButtonText}>Submit</Text>
+          <Text style={styles.submitButtonText}>Save</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.submitButtonContainer}>

@@ -14,7 +14,7 @@ export default function Layout() {
       // }}
       >
       <Stack.Screen 
-        name="index" 
+        name="[date]/[timeOfDay]/index" 
         options={{
           title: `Track Emotions`,
           headerShown: false

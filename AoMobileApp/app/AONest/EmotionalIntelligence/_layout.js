@@ -14,28 +14,28 @@ export default function StackLayout() {
         }}
       />
       <Stack.Screen
-        name="outer"
+        name="[date]/[timeOfDay]/outer"
         options={{
           title: 'Emotional Intelligence',
           headerShown: false
         }}
       />
       <Stack.Screen
-        name="[secondary]/index"
+        name="[date]/[timeOfDay]/[secondary]/index"
         options={({ route }) => ({
           title: `${route.params.secondary} - Level 1`,
           headerShown: false
         })}
       />
       <Stack.Screen
-        name="[secondary]/[tertiary]/index"
+        name="[date]/[timeOfDay]/[secondary]/[tertiary]/index"
         options={({ route }) => ({
           title: `${route.params.tertiary} - Level 2`,
           headerShown: false
         })}
       />
       <Stack.Screen
-        name="[secondary]/[tertiary]/[selection]"
+        name="[date]/[timeOfDay]/[secondary]/[tertiary]/[selection]"
         options={({ route }) => ({
           title: `${route.params.selection} - Level 3`,
           headerShown: false

@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 
-import colors from "../constants/colors";
-import fonts from "../constants/fonts";
+import colors from "constants/colors";
+import fonts from "constants/fonts";
 
 export default StyleSheet.create({
   header: {
@@ -28,9 +28,8 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 10,
-    backgroundColor: '#66847b',
+    backgroundColor: colors.primaryButton,
     borderRadius: 10,
-    borderWidth: 1,
     borderColor: '#f'
   },
   linkText: {

@@ -1,12 +1,13 @@
 import { Text, Dimensions, StyleSheet, View, ScrollView, SafeAreaView } from "react-native";
 import { Button } from 'react-native-elements';
-import { useRouter } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 import { useState, useEffect } from 'react';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
 
 import colors from "constants/colors";
+import emotions from "constants/emotions";
 
 const { width } = Dimensions.get('window');
 
@@ -16,11 +17,18 @@ export default function Page() {
 
     const isFocused = useIsFocused();
 
-    const today = new Date();
+    const { date, timeOfDay } = useLocalSearchParams();
+
+    console.log(date)
+
+    const today = date ? new Date(parseInt(date)) : new Date();
+
+    console.log(today)
 
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-    const [selected_date, setSelectedDate] = useState(new Date(today.getFullYear(), today.getMonth(), today.getDate() ));
+    const [selected_date, setSelectedDate] = useState(new Date(today.getFullYear(), today.getMonth(), today.getDate()));
     const [scores, setScores] = useState([0, 0, 0])
+    const [currentEmotions, setCurrentEmotions] = useState([null, null, null])
 
     const showDatePicker = () => {
         setDatePickerVisibility(true);
@@ -28,6 +36,18 @@ export default function Page() {
 
     const hideDatePicker = () => {
         setDatePickerVisibility(false);
+    };
+
+    const findTertiaryEmotion = (selection) => {
+      for (let primaryEmotion of emotions) {
+        for (let secondaryEmotion of primaryEmotion.secondary) {
+          const tertiaryEmotion = secondaryEmotion.tertiary.find(tertiary => tertiary.text === selection);
+          if (tertiaryEmotion) {
+            return tertiaryEmotion;
+          }
+        }
+      }
+      return null; // Return null if not found
     };
 
     const dateString = selected_date.toLocaleDateString("en-US", {weekday: "long", day: "numeric", month: "long", year: "numeric"});
@@ -46,14 +66,36 @@ export default function Page() {
       }
     }
 
+    const getCurrentEmotions = async (time) => {
+      try {
+        let morningEmotion = null, afternoonEmotion = null, eveningEmotion = null;
+        
+        const morningText = await AsyncStorage.getItem(`emotion/${time}/Morning`);
+        if (morningText) morningEmotion = String.fromCodePoint(findTertiaryEmotion(morningText)?.emoji);
+       
+        const afternoonText = await AsyncStorage.getItem(`emotion/${time}/Afternoon`);
+        if (afternoonText) afternoonEmotion = String.fromCodePoint(findTertiaryEmotion(afternoonText)?.emoji);
+       
+        const eveningText = await AsyncStorage.getItem(`emotion/${time}/Evening`);
+        if (eveningText) eveningEmotion = String.fromCodePoint(findTertiaryEmotion(eveningText)?.emoji);
+       
+        setCurrentEmotions([morningEmotion || "", afternoonEmotion || "", eveningEmotion || ""])
+      } catch (err) {
+        console.log("Error retrieving data: ", err);
+        return 0;
+      }
+    }
+
     const handleConfirm = (date) => {
       setSelectedDate(date)
       updateScores(date.getTime());
+      getCurrentEmotions(date.getTime());
       hideDatePicker();
     };
 
     useEffect(() => {
       updateScores(selected_date.getTime());
+      getCurrentEmotions(selected_date.getTime());
     }, [isFocused]);
 
     return (
@@ -91,19 +133,19 @@ export default function Page() {
               
               <Button 
                   onPress={ () => { router.push(`AONest/TrackEmotions/${epoch}/Morning/track-emotions-form`); } } 
-                  title="Morning"
+                  title={`Morning ${currentEmotions[0]}`}
                   titleStyle={styles.linkText}
                   buttonStyle={(scores[0] > 0) ? styles.linkAlt : styles.link}
               />
               <Button 
                   onPress={ () => { router.push(`AONest/TrackEmotions/${epoch}/Afternoon/track-emotions-form`); } } 
-                  title="Afternoon"
+                  title={`Afternoon ${currentEmotions[1]}`}
                   titleStyle={styles.linkText}
                   buttonStyle={(scores[1] > 0) ? styles.linkAlt : styles.link}
               />
               <Button 
                   onPress={ () => { router.push(`AONest/TrackEmotions/${epoch}/Evening/track-emotions-form`); } } 
-                  title="Evening"
+                  title={`Evening ${currentEmotions[2]}`}
                   titleStyle={styles.linkText}
                   buttonStyle={scores[2] > 0 ? styles.linkAlt : styles.link}
               />
