@@ -147,7 +147,7 @@ export default function Page() {
                   onPress={ () => { router.push(`AONest/TrackEmotions/${epoch}/Evening/track-emotions-form`); } } 
                   title={`Evening ${currentEmotions[2]}`}
                   titleStyle={styles.linkText}
-                  buttonStyle={scores[2] > 0 ? styles.linkAlt : styles.link}
+                  buttonStyle={(scores[2] > 0) ? styles.linkAlt : styles.link}
               />
               <Text style={{ color: colors.title2, fontSize: 24, fontWeight: 'bold', marginTop: 50 }}>Total Score: { scores[0] + scores[1] + scores[2] }</Text>
               
@@ -187,9 +187,8 @@ const styles = StyleSheet.create({
   },
   link: {
     marginTop: 40,
-    paddingVertical: 15,
+    paddingVertical: 30,
     width: 300,
-    // borderWidth: 2,
     borderColor: colors.primaryButton,
     borderRadius: 10,
     backgroundColor: colors.secondaryButton,
@@ -199,9 +198,8 @@ const styles = StyleSheet.create({
   },
   linkAlt: {
     marginTop: 40,
-    paddingVertical: 15,
+    paddingVertical: 30,
     width: 300,
-    // borderWidth: 2,
     borderColor: colors.secondaryButton,
     borderRadius: 10,
     backgroundColor: "#ddd",

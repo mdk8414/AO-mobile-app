@@ -162,18 +162,12 @@ const TrackEmotionsForm = () => {
 
       <View style={styles.submitButtonContainer}>
         <TouchableOpacity
-          style={styles.submitButton}
+          style={styles.submitButton2}
           onPress={() => { saveForm(); router.push(`AONest/EmotionalIntelligence/${date}/${timeOfDay}/outer`); }}>
           <Text style={styles.submitButtonText}>Next</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.submitButtonContainer}>
-        <TouchableOpacity
-          style={styles.submitButton}
-          onPress={() => { saveForm(); router.back(); }}>
-          <Text style={styles.submitButtonText}>Save</Text>
-        </TouchableOpacity>
-      </View>
+
       <View style={styles.submitButtonContainer}>
         <TouchableOpacity
           style={styles.submitButton}
@@ -181,6 +175,7 @@ const TrackEmotionsForm = () => {
           <Text style={styles.submitButtonText}>Back</Text>
         </TouchableOpacity>
       </View>
+
     </ScrollView>
   );
 };
@@ -236,6 +231,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primaryButton,
     paddingVertical: 10,
     paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  submitButton2: {
+    backgroundColor: colors.primaryButton,
+    paddingVertical: 15,
+    paddingHorizontal: 40,
     borderRadius: 5,
   },
   submitButtonText: {

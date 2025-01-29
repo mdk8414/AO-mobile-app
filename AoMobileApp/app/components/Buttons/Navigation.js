@@ -1,8 +1,8 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { StyleSheet, Text, TouchableOpacity, } from "react-native";
 import { Link, useRouter } from 'expo-router'
-import fonts from '../../constants/fonts';
-import colors from '../../constants/colors';
+import fonts from 'constants/fonts';
+import colors from 'constants/colors';
 
 const Navigation = ({ text, icon, href }) => {
   const router = useRouter();
