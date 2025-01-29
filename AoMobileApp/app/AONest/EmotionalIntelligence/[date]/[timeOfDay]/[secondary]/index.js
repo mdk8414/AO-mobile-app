@@ -3,17 +3,17 @@ import { useLocalSearchParams } from 'expo-router';
 import { WebView } from 'react-native-webview';
 import React from 'react';
 
-import emotions from "../../constants/emotions";
-import Emotions from "../../components/Emotions";
-import PageWrapper from '../../components/Wrappers/SubPage';
+import emotions from "constants/emotions";
+import Emotions from "components/Emotions";
+import PageWrapper from 'components/Wrappers/SubPage';
 
 const { width } = Dimensions.get('window');
 
-import styles from '../../styles/page';
+import styles from 'styles/page';
 
 
-export default function EmotionWheelLevel2() {
-  const { secondary } = useLocalSearchParams();
+export default function EmotionalIntelligenceLevel2() {
+  const { secondary, date, timeOfDay } = useLocalSearchParams();
   const emotion = secondary ? emotions.find(el => el.text === secondary) : {};
 
   const VideoComponent = Platform.select({
@@ -41,7 +41,7 @@ export default function EmotionWheelLevel2() {
         <View style={custom_styles.content}>
           <Emotions 
             emotions={emotion?.secondary || []} 
-            baseHref={`/EmotionWheel/${emotion.text}/`} 
+            baseHref={`AONest/EmotionalIntelligence/${date}/${timeOfDay}/${emotion.text}/`} 
           />
         </View>
         <VideoComponent />
@@ -59,9 +59,9 @@ const custom_styles = StyleSheet.create({
     width: '100%',
   },
   content: {
-    flex: 0.5,
+    flex: 1,
     width: Platform.OS === 'web' ? '50%' : '100%',
-    paddingHorizontal: 20,
+    // paddingHorizontal: 0,
   },
   subtitle: {
     fontSize: 18,
@@ -71,7 +71,7 @@ const custom_styles = StyleSheet.create({
     textAlign: 'center',
   },
   iframeContainer: {
-    flex: 0.5,
+    flex: 1,
     width: '50%',
     aspectRatio: 16 / 9,
     overflow: 'hidden',
@@ -83,7 +83,7 @@ const custom_styles = StyleSheet.create({
   },
   webView: {
     flex: 0,
-    width: width,
+    width: width ,
     height: width * (9 / 16),
     // marginTop: 20,
   },

@@ -5,7 +5,7 @@ const SubPage = ({ children }) => {
   return (
     <View style={styles.container}>
       {children}
-      <NavigationButton text="Home" icon="home" href="/AONest" />
+      {/* <NavigationButton icon="arrow-circle-left" href="../" /> */}
     </View>
   );
 };

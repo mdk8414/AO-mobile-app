@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 
-import colors from "../constants/colors";
-import fonts from "../constants/fonts";
+import colors from "constants/colors";
+import fonts from "constants/fonts";
 
 export default StyleSheet.create({
   header: {
@@ -11,9 +11,9 @@ export default StyleSheet.create({
     borderBottomLeftRadius: 15,
   },
   title: {
-    color: colors.headerText,
+    color: colors.primaryButton,
     fontSize: fonts.headerSize,
-    padding: 10
+    padding: 2,
   },
   subtitle: {
     fontSize: fonts.subHeaderSize,
@@ -22,5 +22,20 @@ export default StyleSheet.create({
   },
   container: {
     backgroundColor: colors.containerBackground
+  },
+  link: {
+    marginTop: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 10,
+    backgroundColor: colors.primaryButton,
+    borderRadius: 10,
+    borderColor: '#f'
+  },
+  linkText: {
+    color: '#fff',
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginHorizontal: 10
   }
 });

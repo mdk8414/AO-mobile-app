@@ -14,13 +14,8 @@ export default function HomeScreen() {
   return (
     <View style={styles.webView}>
       <WebView
-        style={styles.webView}
-        source={{ uri: 'https://go.aonest.com/lessons/644/lesson_content_view/1316' }}
+        source={{ uri: 'https://go.aonest.com/' }}
       />
-      {/* <Link style={{...styles.title, padding: 20}} href={"https://go.aonest.com/courses"}>All Courses</Link>
-      <Link style={{...styles.subtitle, padding: 20}} href={"https://go.aonest.com/lessons/644/lesson_content_view/1316"}>Understanding And Resolving My Feelings</Link>
-      <Link style={{...styles.subtitle, padding: 20}} href={"https://go.aonest.com/lessons/646/lesson_content_view/1317"}>Emotional Intelligence and Resilience Challenge</Link>
-      <Link style={{...styles.subtitle, padding: 20}} href={"https://go.aonest.com/lessons/643/lesson_content_view/1318"}>Tracking Emotions And The Factors That Impact My Ability To Cope</Link> */}
     </View>
   );
 }
@@ -49,6 +44,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: width,
     height: height,
-    // marginTop: 20,
+    backgroundColor: "#f",
+    color: "#f"
   }
 });
