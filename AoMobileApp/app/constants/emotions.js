@@ -1,6 +1,6 @@
 export default [{
   text: 'Surprised',
-  emoji: '0x1F631',
+  icon: require('../../assets/emotions/surprised.png'),
   video: 'https://play.vidyard.com/bgwR6Ai7DNBi4Ho7ykczD9.html?',
   secondary: [{
     text: 'Amazed',
@@ -60,7 +60,7 @@ export default [{
   }]
 }, {
   text: 'Happy',
-  emoji: '0x1F600',
+  icon: require('../../assets/emotions/happy.png'),
   video: 'https://play.vidyard.com/w6sJFLjJyt6jwHHF17qrjQ.html?',
   secondary: [{
     text: 'Accepted',
@@ -182,7 +182,7 @@ export default [{
     }]
 }, {
   text: 'Bad',
-  emoji: '0x1F61F',
+  icon: require('../../assets/emotions/bad.png'),
   video: 'https://play.vidyard.com/FWfbB6mxHW4nzJb43WZbTb.html?',
   secondary: [{
     text: "Bored",
@@ -240,7 +240,7 @@ export default [{
   }]
 }, {
   text: 'Disgust',
-  emoji: '0x1F922',
+  icon: require('../../assets/emotions/disgusted.png'),
   video: 'https://play.vidyard.com/o7dLbYEUJ2RJf7tZGYs7Pm.html?',
   secondary: [{
     text: "Awful",
@@ -297,7 +297,7 @@ export default [{
   }]
 }, {
   text: 'Fearful',
-  emoji: '0x1F628',
+  icon: require('../../assets/emotions/fearful.png'),
   video: 'https://play.vidyard.com/LRNDgM9hbeT3E442RGnVmj.html?',
   secondary: [{
     text: "Anxious",
@@ -380,7 +380,7 @@ export default [{
   }]
 }, {
   text: 'Sad',
-  emoji: '0x1F61E',
+  icon: require('../../assets/emotions/sad.png'),
   video: 'https://play.vidyard.com/w1wWEtYjMi6QNxL1HcrEDZ.html?',
   secondary: [{
     text: "Despair",
@@ -463,7 +463,7 @@ export default [{
   }]
 }, {
   text: 'Anger',
-  emoji: '0x1F621',
+  icon: require('../../assets/emotions/anger.png'),
   video: 'https://play.vidyard.com/SBFsdgBiiAZ1y82p4zoueg.html?',
   secondary: [{
     text: "Aggressive",
