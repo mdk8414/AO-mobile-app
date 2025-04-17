@@ -13,14 +13,14 @@ const Emotion = ({ emotion, baseHref }) => {
     // Get the image for this emotion
   // For primary emotions, use the direct mapping
   // For secondary/tertiary emotions, use the parent emotion's image
-  let imageElement, containerStyles;
+  let iconElement, containerStyles;
   
   if (emotion?.icon) {
     // This is a primary emotion
-    imageElement = <><Image source={emotion.icon} style={styles.customIcon}/><Text style={styles.text}>{emotion?.text}</Text></>
+    iconElement = <><Image source={emotion.icon} style={styles.customIcon}/><Text style={styles.text}>{emotion?.text}</Text></>
     containerStyles = styles.imageContainer
   } else {
-    imageElement = <><Text style={styles.emoji}>{String.fromCodePoint(emotion?.emoji)}</Text><Text style={styles.text}>{emotion?.text}</Text></>
+    iconElement = <><Text style={styles.emoji}>{String.fromCodePoint(emotion?.emoji)}</Text><Text style={styles.text}>{emotion?.text}</Text></>
     containerStyles = styles.defaultContainer
   }
   
